@@ -1,26 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CustomCursor : MonoBehaviour
 {
     [SerializeField] private Sprite _normalSprite;
     [SerializeField] private Sprite _pressedSprite;
+    [SerializeField] private int _sortingOrder = 5000;
 
     private SpriteRenderer _skinRenderer;
 
     private void Awake()
     {
         _skinRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        if (_skinRenderer != null)
+        {
+            _skinRenderer.sortingOrder = _sortingOrder;
+        }
+
+        Cursor.visible = false;
     }
 
     private void Update()
     {
-        if (_skinRenderer == null) return;
+        if (_skinRenderer == null || Camera.main == null) return;
 
         if (Input.GetMouseButtonDown(0))
         {
-            Cursor.visible = false;
             _skinRenderer.sprite = _pressedSprite;
         }
 
@@ -34,6 +39,6 @@ public class CustomCursor : MonoBehaviour
 
     private void OnApplicationFocus(bool focus)
     {
-        Cursor.visible = false;
+        Cursor.visible = !focus;
     }
 }
