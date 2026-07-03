@@ -19,7 +19,6 @@ public class MoveTest : MonoBehaviour
     void CheckMoving()
     {
         int moveDir = 0;
-        int up = 0;
         if (Input.GetKey(KeyCode.D))
         {
             moveDir += 1;
@@ -30,7 +29,6 @@ public class MoveTest : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.W))
         {
-            up = 1;
             rb.velocity = new Vector2(velocity * moveDir, 2);
         }
         else
