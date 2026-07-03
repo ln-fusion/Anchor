@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class AnimationController : MonoBehaviour
+public class ToMouse : MonoBehaviour
 {
     private Vector2 mousePosition = Vector2.zero;
     private bool isFacingRight = true;
