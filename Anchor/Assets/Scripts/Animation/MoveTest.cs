@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveTest : MonoBehaviour
@@ -18,20 +19,18 @@ public class MoveTest : MonoBehaviour
 
     void CheckMoving()
     {
-        int moveDir = 0;
-        if (Input.GetKey(KeyCode.D))
+        Vector2 moveDir=(Camera.main.ScreenToWorldPoint(Input.mousePosition)-transform.position).normalized;
+        if (Input.GetKey(KeyCode.Q))
         {
-            moveDir += 1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveDir -= 1;
+            rb.velocity = moveDir*5;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            rb.velocity = new Vector2(velocity * moveDir, 2);
+            rb.velocity = moveDir*10;
         }
-        else
-            rb.velocity = new Vector2(velocity * moveDir, rb.velocity.y);
+        if (Input.GetKey(KeyCode.E))
+        {
+            rb.velocity = moveDir*20;
+        }
     }
 }
