@@ -3178,15 +3178,19 @@ PrefabInstance:
       objectReference: {fileID: 1109221821}
     - target: {fileID: 5045277180437866834, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
       propertyPath: retractingCooldown
-      value: 1.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5045277180437866834, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
       propertyPath: beingPulledToHook_A
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5045277180437866834, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
       propertyPath: beingPulledToHook_Vr0
-      value: 8
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045277180437866834, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
+      propertyPath: beingPulledToHook_VrLimit
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8367252770456717661, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
       propertyPath: m_LocalScale.x
