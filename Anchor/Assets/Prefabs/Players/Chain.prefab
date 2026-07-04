@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8566955136090847818}
   - component: {fileID: 5684986126086611491}
   - component: {fileID: 1108553052745601516}
+  - component: {fileID: -4380248610409691664}
   m_Layer: 0
   m_Name: Chain
   m_TagString: Untagged
@@ -106,3 +107,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!210 &-4380248610409691664
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604770996025903502}
+  m_Enabled: 1
+  m_SortingLayerID: -2111272837
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
