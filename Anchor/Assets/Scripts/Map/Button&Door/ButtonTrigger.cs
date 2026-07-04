@@ -8,7 +8,7 @@ public class ButtonTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log(door==null);
     }
 
     // Update is called once per frame
@@ -19,11 +19,9 @@ public class ButtonTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("aaa");
-        //if (other.GetComponent<Hook>())
-        //{
+        if (other.GetComponent<Hook>())
+        {
             door.SetActive(false);
-            //Debug.Log("yes");
-        //}
+        }
     }
 }
