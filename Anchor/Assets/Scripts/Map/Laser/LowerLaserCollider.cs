@@ -6,14 +6,15 @@ public class LowerLaserController: LaserController
 {
     [SerializeField] private Transform trigger1;
     [SerializeField] private Transform trigger2;
-    private BoxCollider2D boxCollider;
+    [SerializeField] private LayerMask playerLayer;
+    private BoxCollider2D laserCollider;
     private int laserStage = 0;
 
     protected override void Awake()
     {
         base.Awake();
-        boxCollider = GetComponent<BoxCollider2D>();
-        boxCollider.enabled = false;
+        laserCollider = GetComponent<BoxCollider2D>();
+        laserCollider.enabled = false;
         if(trigger1 == null||trigger2 == null)
         {
             Debug.LogError("触发器未设置");
@@ -26,12 +27,13 @@ public class LowerLaserController: LaserController
         base.Update();
         if(transform.position.x < trigger1.position.x && laserStage==0)
         {
-            boxCollider.enabled = true;
+            ActivateLaser();
+            laserCollider.enabled = true;
             laserStage++;
         }
         else if (transform.position.x < trigger2.position.x && laserStage==1)
         {
-            boxCollider.enabled = false;
+            laserCollider.enabled = false;
             laserStage++;
         }
     }
@@ -40,5 +42,37 @@ public class LowerLaserController: LaserController
     {
         base.ResetLaser();
         laserStage = 0;
+    }
+
+    void ActivateLaser()
+    {
+        laserCollider.enabled = true;
+
+        // 关键：开启瞬间检测玩家是否已经在里面
+        Collider2D player = Physics2D.OverlapBox(
+            laserCollider.bounds.center,
+            laserCollider.bounds.size,
+            0f,
+            playerLayer
+        );
+
+        if (player != null)
+        {
+            Vector2 position = player.transform.position;
+            if (position.x >= laserCollider.bounds.center.x)
+            {
+                TeleportPlayer(player,position, laserCollider.bounds.size.x);
+            }
+            else 
+            {
+                TeleportPlayer(player,position, -laserCollider.bounds.size.x);
+            }
+
+        }
+    }
+
+    void TeleportPlayer(Collider2D player,Vector3 position,float distance)
+    {
+        player.transform.position=new Vector2(position.x+distance,position.y);
     }
 }

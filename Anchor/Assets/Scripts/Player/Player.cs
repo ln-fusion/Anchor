@@ -31,11 +31,15 @@ public class Player : MonoBehaviour{
 
     private PlayerState state;//状态机
 
-    private const float shootingCooldown=0.2f;//两次发射钩爪之间需要间隔一段时间
+    [Header("抓钩成长等级")]
+    public int hookLevel;
+
+    [Header("抓钩参数设置")]
+    [SerializeField]private float shootingCooldown=0.2f;//两次发射钩爪之间需要间隔一段时间
+    [SerializeField]private float playerStateShootingHook_HookMaxLivingTime=3f;
+    [SerializeField]private float playerStateRetractingHook_HookMaxLivingTime=3f;
     private float remainingShootingCooldown;
-    private const float playerStateShootingHook_HookMaxLivingTime=3f;
     private float playerStateShootingHook_RemainingHookLivingTime;
-    private const float playerStateRetractingHook_HookMaxLivingTime=3f;
     private float playerStateRetractingHook_RemainingHookLivingTime;
     
 
@@ -52,13 +56,13 @@ public class Player : MonoBehaviour{
     //法向速度不变，径向速度如果小于下面这个东西就会被重置为它，这里的速度有正负之分
     //接下来会获得一个持续的朝向钩子的加速度
     //这里我吸的都是人而不是人的手
-    public const float beingPulledToHook_Vr0=8f;//径向初速度
-    public const float beingPulledToHook_A=4f;//朝向钩爪的加速度
-    public const float beingPulledToHook_VrLimit=8f;//径向速度上限，超过了就不能加速了（不代表最高速度就是这个东西）
+    [Header("抓钩的手感参数")]
+    public float beingPulledToHook_Vr0=8f;//径向初速度
+    public float beingPulledToHook_A=4f;//朝向钩爪的加速度
+    public float beingPulledToHook_VrLimit=8f;//径向速度上限，超过了就不能加速了（不代表最高速度就是这个东西）
+    [SerializeField] private float hookLength=7.5f;
 
-    private float hookLength=7.5f;
-
-    public Rigidbody2D rigidbody2D;
+    public Rigidbody2D rb;
 
 
     void DestroyHookAndReset(){
@@ -80,7 +84,7 @@ public class Player : MonoBehaviour{
         hook=null;
         hookScript=null;
         hookHasBeenRetracted=true;
-        rigidbody2D=GetComponent<Rigidbody2D>();
+        rb=GetComponent<Rigidbody2D>();
     }
 
     void Update(){
@@ -119,7 +123,7 @@ public class Player : MonoBehaviour{
                         hookScript.handPosMarker=handPosMarker;
                         hookScript.retractingSpeed=hookRetractingSpeed;
                         hookScript.shootingVelocity=dir*hookSpeed;
-                        hookScript.collider2D=hook.GetComponent<CircleCollider2D>();
+                        hookScript.colider=hook.GetComponent<CircleCollider2D>();
                         chain=Instantiate(chainPrefab,new Vector3(0,0,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
                         hookHasBeenRetracted=false;
                         //更新冷却
@@ -137,15 +141,15 @@ public class Player : MonoBehaviour{
                         hook.transform.position.x-transform.position.x,
                         hook.transform.position.y-transform.position.y
                     );//人->钩子
-                    v=new float2(rigidbody2D.velocity.x,rigidbody2D.velocity.y);//原来的V_人
+                    v=new float2(rb.velocity.x,rb.velocity.y);//原来的V_人
                     vr=math.projectsafe(v,r);//v在r的径向上的分量
                     vn=v-vr;//v在r的法向上的分量
                     er=math.normalizesafe(r);//r方向上的单位向量，与r同方向
                     signedAbsVr=math.dot(vr,er);//vr的有方向的模长，正负根据r的方向决定
                     float2 newV=er*math.max(signedAbsVr,beingPulledToHook_Vr0)+vn;//好了喵
-                    rigidbody2D.velocity=newV;
+                    rb.velocity=newV;
                     //状态转移
-                    rigidbody2D.gravityScale=0;
+                    rb.gravityScale=0;
                     state=PlayerState.BeingPulledToHook;
                 }
                 else if(
@@ -154,7 +158,7 @@ public class Player : MonoBehaviour{
                     hookScript.obstacleCollisionType==2
                 ){//撤回钩子
                     hookScript.isBeingRetracted=true;
-                    hookScript.collider2D.enabled=false;
+                    hookScript.colider.enabled=false;
                     playerStateRetractingHook_RemainingHookLivingTime=playerStateRetractingHook_HookMaxLivingTime;
                     //状态转移
                     state=PlayerState.RetractingHook;
@@ -180,10 +184,10 @@ public class Player : MonoBehaviour{
             case PlayerState.BeingPulledToHook:
                 if(Input.GetMouseButtonDown(0)){//撤回钩子
                     hookScript.isBeingRetracted=true;
-                    hookScript.collider2D.enabled=false;
+                    hookScript.colider.enabled=false;
                     playerStateRetractingHook_RemainingHookLivingTime=playerStateRetractingHook_HookMaxLivingTime;
                     //状态转移
-                    rigidbody2D.gravityScale=1;
+                    rb.gravityScale=1;
                     state=PlayerState.RetractingHook;
                     break;
                 }
@@ -192,7 +196,7 @@ public class Player : MonoBehaviour{
                     hook.transform.position.x-transform.position.x,
                     hook.transform.position.y-transform.position.y
                 );//人->钩子
-                v=new float2(rigidbody2D.velocity.x,rigidbody2D.velocity.y);//原来的V_人
+                v=new float2(rb.velocity.x,rb.velocity.y);//原来的V_人
                 vr=math.projectsafe(v,r);//v在r的径向上的分量
                 vn=v-vr;//v在r的法向上的分量
                 er=math.normalizesafe(r);//r方向上的单位向量，与r同方向
@@ -200,8 +204,8 @@ public class Player : MonoBehaviour{
                 if(signedAbsVr>=beingPulledToHook_VrLimit){
                     break;
                 }
-                float mass=rigidbody2D.mass;
-                rigidbody2D.AddForce(
+                float mass=rb.mass;
+                rb.AddForce(
                     mass*beingPulledToHook_A*
                     math.normalizesafe(new float2(hook.transform.position.x-transform.position.x,hook.transform.position.y-transform.position.y))
                 );
@@ -212,7 +216,7 @@ public class Player : MonoBehaviour{
         }
         //
         if(chain!=null){
-            float2 tmp=new float2(
+            float2 tmp=new (
                 handPosMarker.transform.position.x-hook.transform.position.x,
                 handPosMarker.transform.position.y-hook.transform.position.y
             );

@@ -6,8 +6,8 @@ using Unity.Mathematics;
 public class Hook: MonoBehaviour{
     public int obstacleCollisionType;//0 未击中 1 击中正常 2击中不让勾上去
     public bool isBeingRetracted;//正在被收回
-    public Rigidbody2D rigidbody2D;
-    public Collider2D collider2D;
+    public Rigidbody2D rb;
+    public Collider2D colider;
     public GameObject handPosMarker;
     public GameObject player;
     public Player playerScript;
@@ -16,11 +16,11 @@ public class Hook: MonoBehaviour{
     void Start(){
         obstacleCollisionType=0;
         isBeingRetracted=false;
-        rigidbody2D=GetComponent<Rigidbody2D>();
+        rb=GetComponent<Rigidbody2D>();
     }
     void OnCollisionEnter2D(Collision2D collision2D){
         obstacleCollisionType=1;
-        if(collider2D.gameObject.TryGetComponent<ObstacleComponentData>(out var tmp)){
+        if(colider.gameObject.TryGetComponent<ObstacleComponentData>(out var tmp)){
             if(!tmp.allowHooks){
                 obstacleCollisionType=2;
             }
@@ -29,17 +29,17 @@ public class Hook: MonoBehaviour{
     void Update(){
         if(!isBeingRetracted){
             if(obstacleCollisionType==1){
-                rigidbody2D.velocity=new Vector2(0,0);
+                rb.velocity=new Vector2(0,0);
             }
             else if(obstacleCollisionType==0){
-                rigidbody2D.velocity=shootingVelocity;
+                rb.velocity=shootingVelocity;
             }
             else{//其他，这里设计得不好
-                rigidbody2D.velocity=new Vector2(0,0);
+                rb.velocity=new Vector2(0,0);
             }
         }
         else{
-            rigidbody2D.velocity=math.normalizesafe(
+            rb.velocity=math.normalizesafe(
                 new float2(
                     handPosMarker.transform.position.x-transform.position.x,
                     handPosMarker.transform.position.y-transform.position.y
