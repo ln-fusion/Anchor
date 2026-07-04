@@ -737,7 +737,11 @@ PrefabInstance:
     - target: {fileID: 7142009585510664189, guid: 57e959bed6558d84f9e2828336aa75b5, type: 3}
       propertyPath: dialogCsv
       value: 
-      objectReference: {fileID: 4900000, guid: d9f8bf915b8fb1145a12d89a0262782a, type: 3}
+      objectReference: {fileID: 4900000, guid: 03728052fcdeda74bbdca343c0894c17, type: 3}
+    - target: {fileID: 7142009585510664189, guid: 57e959bed6558d84f9e2828336aa75b5, type: 3}
+      propertyPath: zoomScale
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7142009585510664189, guid: 57e959bed6558d84f9e2828336aa75b5, type: 3}
       propertyPath: dialogRoot
       value: 
@@ -855,6 +859,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 964642405189448544, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5045277180437866834, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
       propertyPath: mainCamera
       value: 
@@ -911,7 +919,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7000597951583260903, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1057,10 +1066,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 781773263}
-  - {fileID: 763208049}
   - {fileID: 1048980391}
   - {fileID: 1775754798}
   - {fileID: 1506418296830419896}
   - {fileID: 4445752873721738680}
   - {fileID: 2069406864}
+  - {fileID: 763208049}
   - {fileID: 815622543}
