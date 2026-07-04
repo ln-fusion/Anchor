@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1170039890960756093}
   - component: {fileID: 3154651772522277132}
   - component: {fileID: -6513389592842444799}
+  - component: {fileID: 8716099554619856793}
   m_Layer: 29
   m_Name: Hook
   m_TagString: Untagged
@@ -161,4 +162,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf018dd65dc641c4184e54e8587713c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleCollisionType: 0
+  isBeingRetracted: 0
   rigidbody2D: {fileID: 0}
+  collider2D: {fileID: 0}
+  handPosMarker: {fileID: 0}
+  player: {fileID: 0}
+  playerScript: {fileID: 0}
+  retractingSpeed: 0
+  shootingVelocity:
+    x: 0
+    y: 0
+--- !u!114 &8716099554619856793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497107630122358856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e0ef7f34a8a2146bcff63c79869dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

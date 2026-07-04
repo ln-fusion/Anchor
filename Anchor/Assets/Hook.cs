@@ -3,30 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 
-public class Hook : MonoBehaviour{
-    public bool hasCollidedWithObstacles;//一旦发生碰撞，被收回之前就不要再动了
+public class Hook: MonoBehaviour{
+    public int obstacleCollisionType;//0 未击中 1 击中正常 2击中不让勾上去
     public bool isBeingRetracted;//正在被收回
     public Rigidbody2D rigidbody2D;
+    public Collider2D collider2D;
     public GameObject handPosMarker;
     public GameObject player;
     public Player playerScript;
     public float retractingSpeed;
     public float2 shootingVelocity;//出去的速度
     void Start(){
-        hasCollidedWithObstacles=false;
+        obstacleCollisionType=0;
         isBeingRetracted=false;
         rigidbody2D=GetComponent<Rigidbody2D>();
     }
     void OnCollisionEnter2D(Collision2D collision2D){
-        hasCollidedWithObstacles=true;
+        obstacleCollisionType=1;
+        if(!collision2D.gameObject.GetComponent<ObstacleComponentData>().allowHooks){
+            obstacleCollisionType=2;
+        }
     }
     void Update(){
         if(!isBeingRetracted){
-            if(hasCollidedWithObstacles){
+            if(obstacleCollisionType==1){
                 rigidbody2D.velocity=new Vector2(0,0);
             }
-            else{
+            else if(obstacleCollisionType==0){
                 rigidbody2D.velocity=shootingVelocity;
+            }
+            else{//其他，这里设计得不好
+                rigidbody2D.velocity=new Vector2(0,0);
             }
         }
         else{
