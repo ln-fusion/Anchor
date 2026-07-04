@@ -67,6 +67,7 @@ public class Player : MonoBehaviour{
 
     public Rigidbody2D rb;
 
+    [SerializeField] private SoundManager.SoundManager soundManager;
 
     void DestroyHookAndReset(){
         Destroy(hook);
@@ -128,8 +129,10 @@ public class Player : MonoBehaviour{
                         hookScript.retractingSpeed=hookRetractingSpeed;
                         hookScript.shootingVelocity=dir*hookSpeed;
                         hookScript.colider=hook.GetComponent<CircleCollider2D>();
+                        hookScript.soundManager=soundManager;
                         chain=Instantiate(chainPrefab,new Vector3(0,-114514,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
                         hookHasBeenRetracted=false;
+                        soundManager.PlaySFXReplace("AnchorShoot");
                         //更新冷却
                         remainingShootingCooldown=shootingCooldown;
                         playerStateShootingHook_RemainingHookLivingTime=playerStateShootingHook_HookMaxLivingTime;
