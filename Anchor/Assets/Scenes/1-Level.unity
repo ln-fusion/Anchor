@@ -3277,6 +3277,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa78d27b01d91384a9da41a3f8d83ef7, type: 3}
+--- !u!114 &641086935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4368167016218802931, guid: 695a8c75b5ea5994396c63946ccf43a7, type: 3}
+  m_PrefabInstance: {fileID: 446549747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32fb94f763e62546885ca653af2eeab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &709627182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,7 +4012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 485090495}
-  soundManager: {fileID: 0}
+  soundManager: {fileID: 641086935}
 --- !u!212 &1761873886
 SpriteRenderer:
   m_ObjectHideFlags: 0

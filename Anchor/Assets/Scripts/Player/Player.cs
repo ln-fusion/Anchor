@@ -90,6 +90,12 @@ public class Player : MonoBehaviour{
         hookHasBeenRetracted=true;
         rb=GetComponent<Rigidbody2D>();
     }
+    void Start(){
+        soundManager.Play("Music");
+    }
+    void OnDestroy(){
+        soundManager.StopAll();
+    }
 
     void Update(){
         //杂项
