@@ -12,8 +12,9 @@ public class SwitchScene : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>())
+        if (other.GetComponent<Hook>())
         {
+            Debug.Log("轮椅角色盗冠成功");
             SceneManager.LoadScene((currentSceneCount + 1) % SceneManager.sceneCountInBuildSettings);
         }
     }
