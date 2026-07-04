@@ -372,7 +372,7 @@ Transform:
   m_GameObject: {fileID: 286450219}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.8507023, y: -0.52999973, z: -0.1}
+  m_LocalPosition: {x: 5.8507023, y: -0.52999973, z: -0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1152,6 +1152,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1450625693}
   handPosMarker: {fileID: 286450219}
   hookPrefab: {fileID: 6497107630122358856, guid: 3975ff8ef409f69498473e9f704f44c9, type: 3}
+  chainPrefab: {fileID: 3604770996025903502, guid: b444888934dca4248bb7a710044b579b, type: 3}
   hookHasBeenRetracted: 0
   rigidbody2D: {fileID: 0}
 --- !u!70 &1865781846
@@ -1186,8 +1187,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.43923318, y: 3.2686424}
-  m_Size: {x: 18.919483, y: 25.777025}
+  m_Offset: {x: 0.6013119, y: -0.16014099}
+  m_Size: {x: 18.070194, y: 18.919483}
   m_Direction: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

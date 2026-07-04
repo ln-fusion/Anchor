@@ -20,8 +20,10 @@ public class Hook: MonoBehaviour{
     }
     void OnCollisionEnter2D(Collision2D collision2D){
         obstacleCollisionType=1;
-        if(!collision2D.gameObject.GetComponent<ObstacleComponentData>().allowHooks){
-            obstacleCollisionType=2;
+        if(collider2D.gameObject.TryGetComponent<ObstacleComponentData>(out var tmp)){
+            if(!tmp.allowHooks){
+                obstacleCollisionType=2;
+            }
         }
     }
     void Update(){
