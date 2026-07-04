@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class InGameDialogue : MonoBehaviour
 {
     public static bool IsDialogActive { get; private set; }
-    [SerializeField] private string debugSegmentId = "prologue";//当前正在调试的故事段的id
+    [SerializeField] private string debugSegmentId = "prologue";//我弃用了debugSegmentId
     [Serializable]
     private struct DialogRow
     {
@@ -18,7 +18,13 @@ public class InGameDialogue : MonoBehaviour
     }
 
     [Header("1. 数据")]
-    [SerializeField] private TextAsset dialogCsv;
+    [SerializeField] private TextAsset dialogCsv_Q1;
+    [SerializeField] private TextAsset dialogCsv_Q2;
+    [SerializeField] private TextAsset dialogCsv_Q3;
+    [SerializeField] private TextAsset dialogCsv_Q4;
+    [SerializeField] private TextAsset dialogCsv_Q5;
+    [SerializeField] private TextAsset dialogCsv_Q6;
+    private TextAsset currentDialogCsv;
     [SerializeField] private int startLineId = 0;
 
     [Header("2. UI 引用")]
@@ -64,7 +70,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void Awake()
     {
-        ParseCsv();
+        //ParseCsv();被我移到别的地方去了
         HideDialog();
 
         if (cameraTransform == null && Camera.main != null)
@@ -87,12 +93,27 @@ public class InGameDialogue : MonoBehaviour
 
 
 
-    //======================================================调试
-    public void DebugPlay()
-    {
-        PlaySegment(debugSegmentId);
+    //======================================================正式
+    public void StartPlaying(int index){//[1,6]
+        switch(index){
+            case 1:
+                currentDialogCsv=dialogCsv_Q1;break;
+            case 2:
+                currentDialogCsv=dialogCsv_Q2;break;
+            case 3:
+                currentDialogCsv=dialogCsv_Q3;break;
+            case 4:
+                currentDialogCsv=dialogCsv_Q4;break;
+            case 5:
+                currentDialogCsv=dialogCsv_Q5;break;
+            case 6:
+                currentDialogCsv=dialogCsv_Q6;break;
+            default:
+                break;//异常
+        }
+        ParseCsv();//反正文本也不长
+        PlaySegment("s1");//我弃用了debugSegmentId//写死了
     }
-    //======================================================
 
 
 
@@ -114,15 +135,15 @@ public class InGameDialogue : MonoBehaviour
         //deferclose是历史遗留问题，设置为false
     }
 
-    public void PlaySegment(string segmentId, Transform focusTarget, Action onFinished = null)
-    {
-        PlaySegment(segmentId, focusTarget, true, false, onFinished);
-    }
+    // public void PlaySegment(string segmentId, Transform focusTarget, Action onFinished = null)
+    // {
+    //     PlaySegment(segmentId, focusTarget, true, false, onFinished);
+    // }
 
-    public void PlaySegment(string segmentId, Transform focusTarget, bool restoreCameraWhenDone, Action onFinished = null)
-    {
-        PlaySegment(segmentId, focusTarget, restoreCameraWhenDone, false, onFinished);
-    }
+    // public void PlaySegment(string segmentId, Transform focusTarget, bool restoreCameraWhenDone, Action onFinished = null)
+    // {
+    //     PlaySegment(segmentId, focusTarget, restoreCameraWhenDone, false, onFinished);
+    // }
 
     public void PlaySegment(string segmentId, Transform focusTarget, bool restoreCameraWhenDone, bool deferClose, Action onFinished = null)
     {
@@ -304,12 +325,12 @@ public class InGameDialogue : MonoBehaviour
     {
         dialogRowsBySegment.Clear();
 
-        if (dialogCsv == null)
+        if (currentDialogCsv == null)
         {
             return;
         }
 
-        string[] rows = dialogCsv.text.Split('\n');
+        string[] rows = currentDialogCsv.text.Split('\n');
         foreach (string rawRow in rows)
         {
             if (string.IsNullOrWhiteSpace(rawRow)) continue;
