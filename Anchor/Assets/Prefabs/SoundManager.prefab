@@ -50,19 +50,19 @@ MonoBehaviour:
   sounds:
   - name: AnchorHit
     type: 1
-    clip: {fileID: 8300000, guid: d259785de51698643ab221fe7f1a9869, type: 3}
+    clip: {fileID: 8300000, guid: 3a98d917d5b3aa24cbd4e3d127877d4b, type: 3}
     volume: 0
     pitch: 0
     loop: 0
   - name: AnchorShoot
     type: 1
-    clip: {fileID: 8300000, guid: 8a3cf93a8fb65e943b23c1f34d5a7f8b, type: 3}
+    clip: {fileID: 8300000, guid: 86ca9712855bae54d8b5ba3a1a24145b, type: 3}
     volume: 0
     pitch: 0
     loop: 0
   - name: DoorOpen
     type: 1
-    clip: {fileID: 8300000, guid: d259785de51698643ab221fe7f1a9869, type: 3}
+    clip: {fileID: 8300000, guid: e23a9a66b95fea44884305dffa712003, type: 3}
     volume: 0
     pitch: 0
     loop: 0
