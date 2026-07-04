@@ -121,7 +121,7 @@ public class Player : MonoBehaviour{
                     var handPosMarkerScreenPos=mainCamera.WorldToScreenPoint(handPosMarker.transform.position);
                     var dir=math.normalizesafe(new float2(Input.mousePosition.x-handPosMarkerScreenPos.x,Input.mousePosition.y-handPosMarkerScreenPos.y));
                     if(math.length(dir)>eps){//否则视作异常
-                        var deg=-math.atan2(dir.y,dir.x)*(180.0f/math.PI);//Deg!
+                        var deg=math.atan2(dir.y,dir.x)*(180.0f/math.PI);//Deg!
                         hook=Instantiate(
                             hookPrefab,
                             new Vector3(handPosMarker.transform.position.x,handPosMarker.transform.position.y,-0.2f),
