@@ -24,7 +24,7 @@ public class Hook: MonoBehaviour{
     }
     void OnCollisionEnter2D(Collision2D collision2D){
         if(shouldPlaySoundOnHittingObstacles){
-            soundManager.PlaySFXReplace("AnchorHit");
+            //soundManager.PlaySFXReplace("AnchorHit");
         }
         shouldPlaySoundOnHittingObstacles=false;
         obstacleCollisionType=1;
