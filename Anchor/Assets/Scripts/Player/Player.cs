@@ -92,6 +92,11 @@ public class Player : MonoBehaviour{
     }
 
     void Update(){
+        if (InGameDialogue.IsDialogActive)
+        {
+            return;
+        }
+
         //杂项
         var dt=Time.deltaTime;
         Vector2 screenCenterPos=new Vector2(Screen.width,Screen.height)/2.0f;
