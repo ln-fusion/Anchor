@@ -25,6 +25,8 @@ public class Player : MonoBehaviour{
 
     public GameObject hookPrefab;
     private GameObject hook;
+    public GameObject chainPrefab;
+    private GameObject chain;
     private Hook hookScript;
 
     private PlayerState state;//状态机
@@ -51,8 +53,8 @@ public class Player : MonoBehaviour{
     //接下来会获得一个持续的朝向钩子的加速度
     //这里我吸的都是人而不是人的手
     public const float beingPulledToHook_Vr0=8f;//径向初速度
-    public const float beingPulledToHook_A=8f;//朝向钩爪的加速度
-    public const float beingPulledToHook_VrLimit=7f;//径向速度上限，超过了就不能加速了（不代表最高速度就是这个东西）
+    public const float beingPulledToHook_A=4f;//朝向钩爪的加速度
+    public const float beingPulledToHook_VrLimit=8f;//径向速度上限，超过了就不能加速了（不代表最高速度就是这个东西）
 
     private float hookLength=7.5f;
 
@@ -64,6 +66,8 @@ public class Player : MonoBehaviour{
         hook=null;
         hookScript=null;
         hookHasBeenRetracted=true;
+        Destroy(chain);
+        chain=null;
     }
 
 
@@ -104,7 +108,11 @@ public class Player : MonoBehaviour{
                     var dir=math.normalizesafe(new float2(Input.mousePosition.x-handPosMarkerScreenPos.x,Input.mousePosition.y-handPosMarkerScreenPos.y));
                     if(math.length(dir)>eps){//否则视作异常
                         var deg=-math.atan2(dir.y,dir.x)*(180.0f/math.PI);//Deg!
-                        hook=Instantiate(hookPrefab,handPosMarker.transform.position,Quaternion.Euler(0,0,deg));
+                        hook=Instantiate(
+                            hookPrefab,
+                            new Vector3(handPosMarker.transform.position.x,handPosMarker.transform.position.y,-0.2f),
+                            Quaternion.Euler(0,0,deg)
+                        );
                         hookScript=hook.GetComponent<Hook>();
                         hookScript.player=gameObject;
                         hookScript.playerScript=this;
@@ -112,6 +120,7 @@ public class Player : MonoBehaviour{
                         hookScript.retractingSpeed=hookRetractingSpeed;
                         hookScript.shootingVelocity=dir*hookSpeed;
                         hookScript.collider2D=hook.GetComponent<CircleCollider2D>();
+                        chain=Instantiate(chainPrefab,new Vector3(0,0,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
                         hookHasBeenRetracted=false;
                         //更新冷却
                         remainingShootingCooldown=shootingCooldown;
@@ -136,6 +145,7 @@ public class Player : MonoBehaviour{
                     float2 newV=er*math.max(signedAbsVr,beingPulledToHook_Vr0)+vn;//好了喵
                     rigidbody2D.velocity=newV;
                     //状态转移
+                    rigidbody2D.gravityScale=0;
                     state=PlayerState.BeingPulledToHook;
                 }
                 else if(
@@ -173,6 +183,7 @@ public class Player : MonoBehaviour{
                     hookScript.collider2D.enabled=false;
                     playerStateRetractingHook_RemainingHookLivingTime=playerStateRetractingHook_HookMaxLivingTime;
                     //状态转移
+                    rigidbody2D.gravityScale=1;
                     state=PlayerState.RetractingHook;
                     break;
                 }
@@ -200,5 +211,21 @@ public class Player : MonoBehaviour{
                 break;
         }
         //
+        if(chain!=null){
+            float2 tmp=new float2(
+                handPosMarker.transform.position.x-hook.transform.position.x,
+                handPosMarker.transform.position.y-hook.transform.position.y
+            );
+            float2 dir=math.normalizesafe(tmp);
+            if(math.length(dir)>1e-3f){
+                float chainLength=math.length(tmp);
+                chain.transform.localScale=new Vector3(1f,chainLength,1f);
+                var deg=math.atan2(dir.y,dir.x)*(180.0f/math.PI)-90;
+                chain.transform.rotation=Quaternion.Euler(0,0,deg);
+                var tmpPos=(hook.transform.position+handPosMarker.transform.position)/2;
+                tmpPos.z=-0.1f;
+                chain.transform.position=tmpPos;
+            }
+        }
     }
 }
