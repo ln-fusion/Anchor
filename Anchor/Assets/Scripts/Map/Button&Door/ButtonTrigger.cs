@@ -5,14 +5,19 @@ using UnityEngine;
 public class ButtonTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject door;
+    [SerializeField] private SoundManager.SoundManager soundManager;
+    bool doorIsOpen;
     // Start is called before the first frame update
     void Start()
     {
+        doorIsOpen=false;
         if (door == null)
         {
             Debug.LogError("未设置绑定的门");
         }
+        //未对SoundManager进行检查
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,6 +28,10 @@ public class ButtonTrigger : MonoBehaviour
                 return;
             }
             door.SetActive(false);
+            if(!doorIsOpen){
+                soundManager.PlaySFXReplace("DoorOpen");
+            }
+            doorIsOpen=true;
         }
     }
 }

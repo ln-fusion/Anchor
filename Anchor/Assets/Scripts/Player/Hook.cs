@@ -13,12 +13,20 @@ public class Hook: MonoBehaviour{
     public Player playerScript;
     public float retractingSpeed;
     public float2 shootingVelocity;//出去的速度
+
+    private bool shouldPlaySoundOnHittingObstacles;
+    public SoundManager.SoundManager soundManager;
     void Start(){
         obstacleCollisionType=0;
         isBeingRetracted=false;
         rb=GetComponent<Rigidbody2D>();
+        shouldPlaySoundOnHittingObstacles=true;
     }
     void OnCollisionEnter2D(Collision2D collision2D){
+        if(shouldPlaySoundOnHittingObstacles){
+            soundManager.PlaySFXReplace("AnchorHit");
+        }
+        shouldPlaySoundOnHittingObstacles=false;
         obstacleCollisionType=1;
         if(collision2D.gameObject.TryGetComponent<ObstacleComponentData>(out var tmp)){
             if(!tmp.allowHooks){

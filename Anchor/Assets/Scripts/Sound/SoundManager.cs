@@ -101,10 +101,16 @@ namespace SoundManager
         /// </summary>
         public void PlaySFXReplace(string name)
         {
+            if(sfxSource.isPlaying){//如果正在播放的音效是开门，忽略其他一切音效
+                if((sfxSource.clip.name=="DoorOpen") && (name!="DoorOpen")){
+                    return;
+                }
+            }
+
+
             SoundItem sound = sounds.Find(s => s.name == name);
             if (sound == null || sound.clip == null)
                 return;
-
             // 仅对 SFX 生效，若不是 SFX 则不处理
             if (sound.type != SoundType.SFX)
             {
