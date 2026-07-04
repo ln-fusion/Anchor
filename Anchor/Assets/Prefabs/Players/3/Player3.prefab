@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 847108413334707045}
   - component: {fileID: 5045277180437866834}
   m_Layer: 31
-  m_Name: Player
+  m_Name: Player3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,17 +883,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   handPosMarker: {fileID: 5971990823008561993}
-  hookPrefab: {fileID: 6497107630122358856, guid: 3975ff8ef409f69498473e9f704f44c9, type: 3}
+  hookPrefab: {fileID: 6497107630122358856, guid: 0d5d5dc8058ef4645a2a107775a087f6, type: 3}
   chainPrefab: {fileID: 3604770996025903502, guid: b444888934dca4248bb7a710044b579b, type: 3}
   shootingCooldown: 0.2
   retractingCooldown: 1
   playerStateShootingHook_HookMaxLivingTime: 3
   playerStateRetractingHook_HookMaxLivingTime: 3
   hookHasBeenRetracted: 0
-  beingPulledToHook_Vr0: 8
-  beingPulledToHook_A: 6
-  beingPulledToHook_VrLimit: 8
-  hookLength: 5
+  beingPulledToHook_Vr0: 1
+  beingPulledToHook_A: 1
+  beingPulledToHook_VrLimit: 4
+  hookLength: 15
   rb: {fileID: 0}
 --- !u!1 &5971990823008561993
 GameObject:
