@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class InGameDialogue : MonoBehaviour
 {
     public static bool IsDialogActive { get; private set; }
-    [SerializeField] private string debugSegmentId = "prologue";
+    [SerializeField] private string debugSegmentId = "prologue";//当前正在调试的故事段的id
     [Serializable]
     private struct DialogRow
     {
@@ -31,6 +31,7 @@ public class InGameDialogue : MonoBehaviour
     [SerializeField] private float typeSpeed = 0.03f;
 
     [Header("4. 镜头聚焦")]
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private Camera focusCamera;
     [SerializeField] private float cameraMoveDuration = 0.2f;
@@ -83,9 +84,34 @@ public class InGameDialogue : MonoBehaviour
         }
     }
 
+
+
+
+    //======================================================调试
+    public void DebugPlay()
+    {
+        PlaySegment(debugSegmentId);
+    }
+    //======================================================
+
+
+
+
+
+
+
+
+
+
+
     public void PlaySegment(string segmentId, Action onFinished = null)
     {
-        PlaySegment(segmentId, null, true, false, onFinished);
+        PlaySegment(segmentId, playerTransform, true, false, onFinished);
+        //segmentid focustarget restorecamerawhendone deferclose onfinished 
+        //重要！
+
+        //focus target是聚焦到的东西的transform
+        //deferclose是历史遗留问题，设置为false
     }
 
     public void PlaySegment(string segmentId, Transform focusTarget, Action onFinished = null)
@@ -123,11 +149,6 @@ public class InGameDialogue : MonoBehaviour
         FocusCamera(focusTarget);
         ShowDialogRow();
     }
-    public void DebugPlay()
-    {
-        PlaySegment(debugSegmentId);
-    }
-
     private void ShowDialogRow()
     {
         if (!dialogRowsBySegment.TryGetValue(currentSegmentId, out var rows))
@@ -217,7 +238,8 @@ public class InGameDialogue : MonoBehaviour
 
     private void EndDialog()
     {
-        if (deferCloseOnFinish)
+        Debug.Log("test end dialog");
+        if (deferCloseOnFinish)//历史遗留问题，请忽略
         {
             waitingForExternalClose = true;
             if (nextButton != null)
@@ -236,6 +258,7 @@ public class InGameDialogue : MonoBehaviour
 
     public void CloseDialog()
     {
+        Debug.Log("test close dialog");
         HideDialog();
         if (restoreCameraOnFinish)
         {
@@ -253,6 +276,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void HideDialog()
     {
+        Debug.Log("test hide dialog");
         ShowDialogRoot(false);
         if (dialogText != null)
         {
@@ -262,6 +286,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void ShowDialogRoot(bool visible)
     {
+        Debug.Log("calling ShowDialogRoot "+visible);
         if (dialogRoot != null)
         {
             dialogRoot.SetActive(visible);
@@ -316,14 +341,16 @@ public class InGameDialogue : MonoBehaviour
 
     private void FocusCamera(Transform focusTarget)
     {
+        Debug.Log("begin focus camera");
         if (cameraTransform == null || focusTarget == null) return;
-
+        Debug.Log("focus camera 1");
         cameraOriginalPosition ??= cameraTransform.position;
         Vector3 targetPosition = focusTarget.position;
         targetPosition.z = cameraTransform.position.z;
 
         StartCameraMove(targetPosition);
         TryZoomCamera();
+        Debug.Log("end focus camera");
     }
 
     private void RestoreCamera()
