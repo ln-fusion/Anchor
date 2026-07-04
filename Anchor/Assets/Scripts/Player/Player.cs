@@ -31,14 +31,13 @@ public class Player : MonoBehaviour{
 
     private PlayerState state;//状态机
 
-    [Header("抓钩成长等级")]
-    public int hookLevel;
-
     [Header("抓钩参数设置")]
     [SerializeField]private float shootingCooldown=0.2f;//两次发射钩爪之间需要间隔一段时间
+    [SerializeField] private float retractingCooldown = 1f;//抓钩收回后至下一次发射的冷却时间
     [SerializeField]private float playerStateShootingHook_HookMaxLivingTime=3f;
     [SerializeField]private float playerStateRetractingHook_HookMaxLivingTime=3f;
     private float remainingShootingCooldown;
+    private float remainingRetractingCooldown;
     private float playerStateShootingHook_RemainingHookLivingTime;
     private float playerStateRetractingHook_RemainingHookLivingTime;
     
@@ -57,9 +56,13 @@ public class Player : MonoBehaviour{
     //接下来会获得一个持续的朝向钩子的加速度
     //这里我吸的都是人而不是人的手
     [Header("抓钩的手感参数")]
+    [Header("1.径向初速度")]
     public float beingPulledToHook_Vr0=8f;//径向初速度
+    [Header("2.朝向钩爪的加速度")]
     public float beingPulledToHook_A=4f;//朝向钩爪的加速度
+    [Header("3.径向速度上限，超过无法加速（不代表最高速度）")]
     public float beingPulledToHook_VrLimit=8f;//径向速度上限，超过了就不能加速了（不代表最高速度就是这个东西）
+    [Header("4.抓钩长度")]
     [SerializeField] private float hookLength=7.5f;
 
     public Rigidbody2D rb;
@@ -93,7 +96,8 @@ public class Player : MonoBehaviour{
         Vector2 screenCenterPos=new Vector2(Screen.width,Screen.height)/2.0f;
         //更新
         remainingShootingCooldown=math.max(0,remainingShootingCooldown-dt);
-        playerStateRetractingHook_RemainingHookLivingTime=math.max(0,playerStateRetractingHook_RemainingHookLivingTime-dt);
+        remainingRetractingCooldown = math.max(0, remainingRetractingCooldown - dt);
+        playerStateRetractingHook_RemainingHookLivingTime =math.max(0,playerStateRetractingHook_RemainingHookLivingTime-dt);
         playerStateShootingHook_RemainingHookLivingTime=math.max(0,playerStateShootingHook_RemainingHookLivingTime-dt);
         //更新人物朝向，默认为右
         Vector3 newLocalScale=defaultLocalScale;
@@ -106,7 +110,7 @@ public class Player : MonoBehaviour{
         float signedAbsVr;
         switch(state){
             case PlayerState.Idle:
-                if(Input.GetMouseButtonDown(0) && math.abs(remainingShootingCooldown)<eps){//左键+已冷却
+                if(Input.GetMouseButtonDown(0) && math.abs(remainingShootingCooldown)<eps&&math.abs(remainingRetractingCooldown)<eps){//左键+已冷却
                     //尝试发射钩子，如果归一化出现异常则不发射
                     var handPosMarkerScreenPos=mainCamera.WorldToScreenPoint(handPosMarker.transform.position);
                     var dir=math.normalizesafe(new float2(Input.mousePosition.x-handPosMarkerScreenPos.x,Input.mousePosition.y-handPosMarkerScreenPos.y));
@@ -124,7 +128,7 @@ public class Player : MonoBehaviour{
                         hookScript.retractingSpeed=hookRetractingSpeed;
                         hookScript.shootingVelocity=dir*hookSpeed;
                         hookScript.colider=hook.GetComponent<CircleCollider2D>();
-                        chain=Instantiate(chainPrefab,new Vector3(0,0,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
+                        chain=Instantiate(chainPrefab,new Vector3(0,-114514,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
                         hookHasBeenRetracted=false;
                         //更新冷却
                         remainingShootingCooldown=shootingCooldown;
@@ -188,7 +192,8 @@ public class Player : MonoBehaviour{
                     playerStateRetractingHook_RemainingHookLivingTime=playerStateRetractingHook_HookMaxLivingTime;
                     //状态转移
                     rb.gravityScale=1;
-                    state=PlayerState.RetractingHook;
+                    remainingRetractingCooldown = retractingCooldown;
+                    state =PlayerState.RetractingHook;
                     break;
                 }
                 //处理径向速度

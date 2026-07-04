@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LowerLaserController: LaserController
@@ -59,20 +60,7 @@ public class LowerLaserController: LaserController
         if (player != null)
         {
             Vector2 position = player.transform.position;
-            if (position.x >= laserCollider.bounds.center.x)
-            {
-                TeleportPlayer(player,position, laserCollider.bounds.size.x);
-            }
-            else 
-            {
-                TeleportPlayer(player,position, -laserCollider.bounds.size.x);
-            }
-
+            player.transform.position = new Vector2(position.x + laserCollider.bounds.size.x, position.y);
         }
-    }
-
-    void TeleportPlayer(Collider2D player,Vector3 position,float distance)
-    {
-        player.transform.position=new Vector2(position.x+distance,position.y);
     }
 }

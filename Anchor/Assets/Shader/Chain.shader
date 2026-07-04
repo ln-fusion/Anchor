@@ -10,6 +10,7 @@ Shader "Unlit/Chain"{
         LOD 100
 
         Pass{
+            ZWrite Off
             Blend SrcAlpha OneMinusSrcAlpha
             CGPROGRAM
             #pragma vertex vert
