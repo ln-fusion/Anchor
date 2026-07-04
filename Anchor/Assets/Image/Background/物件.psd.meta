@@ -101,15 +101,15 @@ ScriptedImporter:
   rigSpriteImportData:
   - name: "\u56FE\u5C42 6"
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4329
-      y: 3148
-      width: 673
-      height: 4015
+      x: 4326
+      y: 3146
+      width: 3866
+      height: 4020
     spriteID: 683d3e1c47f71524b9225708a2ef94e2
     spriteBone: []
     spriteOutline: []
@@ -122,15 +122,15 @@ ScriptedImporter:
     spritePosition: {x: 11097, y: 2370}
   - name: 51d3ef846cff00a0f115852378099a09
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
-      width: 4017
-      height: 3136
+      x: 2
+      y: 2070
+      width: 1212
+      height: 1072
     spriteID: e2946d4787bdc9a46a932433a6d8647a
     spriteBone: []
     spriteOutline: []
@@ -143,15 +143,15 @@ ScriptedImporter:
     spritePosition: {x: 9122, y: 3557}
   - name: 1077f24328c1f424c0513910fb63afc3
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 3148
-      width: 4317
-      height: 2379
+      x: 2362
+      y: 5506
+      width: 12
+      height: 24
     spriteID: 656ac39b63f14a04e912595cbe447e0c
     spriteBone: []
     spriteOutline: []
@@ -162,6 +162,132 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 3148}
     spritePosition: {x: 4065, y: 4454}
+  - name: "\u7269\u4EF6_0"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 3150
+      width: 1518
+      height: 2168
+    spriteID: 59cc84a2e985efd419a0db547c788210
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 3150}
+    spritePosition: {x: 0, y: 0}
+  - name: "\u7269\u4EF6_1"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1726
+      y: 3146
+      width: 508
+      height: 2184
+    spriteID: 0e16605a4f286b04bbef59c8f26ab8d5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1726, y: 3146}
+    spritePosition: {x: 0, y: 0}
+  - name: "\u7269\u4EF6_2"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2506
+      y: 3158
+      width: 652
+      height: 2172
+    spriteID: 7106beece1a31654f921fa02668cdd04
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 2506, y: 3158}
+    spritePosition: {x: 0, y: 0}
+  - name: "\u7269\u4EF6_3"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3270
+      y: 3158
+      width: 1056
+      height: 2324
+    spriteID: a08d47a10ede4e34aa0e8f9875c8e009
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 3270, y: 3158}
+    spritePosition: {x: 0, y: 0}
+  - name: "\u7269\u4EF6_4"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 178
+      y: 2
+      width: 848
+      height: 1996
+    spriteID: a4ff3285606223b4ab8a6bc03dfb60d6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 178, y: 2}
+    spritePosition: {x: 0, y: 0}
+  - name: "\u7269\u4EF6_5"
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3474
+      y: 1198
+      width: 552
+      height: 292
+    spriteID: c5fdb8a60f6ed3c49955529f448b6e78
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 3474, y: 1198}
+    spritePosition: {x: 0, y: 0}
   characterData:
     bones: []
     parts: []
