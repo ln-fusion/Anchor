@@ -78,8 +78,17 @@ namespace SoundManager
             }
             else
             {
-                source.volume = 1f;
-                source.PlayOneShot(sound.clip, GetEffectiveVolume(sound));
+                // 对于 SFX，始终使用覆盖播放模式，如果已有音效在 sfxSource 上播放，则停止它以覆盖为新的音效；否则直接播放新的音效。
+                if (sfxSource.isPlaying)
+                {
+                    sfxSource.Stop();
+                }
+
+                sfxSource.clip = sound.clip;
+                sfxSource.pitch = sound.pitch;
+                sfxSource.loop = sound.loop;
+                sfxSource.volume = GetEffectiveVolume(sound);
+                sfxSource.Play();
             }
         }
 
