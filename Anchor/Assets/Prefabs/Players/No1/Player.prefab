@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c6ad39be715ea5439c853f388a0ca0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2012ab26eac4f0546a23278f921fa779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 7000597951583260903}
   - component: {fileID: 5045277180437866834}
   - component: {fileID: 7413864801971122759}
+  - component: {fileID: 3004836627254162253}
   m_Layer: 31
   m_Name: Player
   m_TagString: Untagged
@@ -194,6 +195,7 @@ MonoBehaviour:
   beingPulledToHook_VrLimit: 8
   hookLength: 5
   rb: {fileID: 0}
+  soundManager: {fileID: 0}
 --- !u!60 &7413864801971122759
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -579,3 +581,17 @@ PolygonCollider2D:
       - {x: 2.3899999, y: -2.03}
       - {x: 2.3799999, y: -2.03}
   m_UseDelaunayMesh: 0
+--- !u!114 &3004836627254162253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964642405189448544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a0afc2a7764a742ab48d4a334ceb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1028572303559602124}
+  isThrowing: 1
