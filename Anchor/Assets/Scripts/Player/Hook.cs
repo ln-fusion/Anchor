@@ -23,7 +23,10 @@ public class Hook: MonoBehaviour{
     }
     void OnCollisionEnter2D(Collision2D collision2D){
         if(shouldPlaySoundOnHittingObstacles){
-            soundManager.Play("AnchorHit");
+            if (SoundManager.SoundManager.Instance != null)
+            {
+                SoundManager.SoundManager.Instance.Play("AnchorHit");
+            }
         }
         shouldPlaySoundOnHittingObstacles=false;
         obstacleCollisionType=1;

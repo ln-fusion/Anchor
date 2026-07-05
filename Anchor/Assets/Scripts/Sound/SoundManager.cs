@@ -82,25 +82,17 @@ namespace SoundManager
             if (sound.type == SoundType.Music)
             {
                 currentMusic = sound;
-                source.volume = GetEffectiveVolume(sound);
-                Debug.Log(source.clip);
-                Debug.Log(source.loop);
-                source.Play();
+                ApplyToSource(musicSource, sound);
             }
             else
             {
-                // 对于 SFX，始终使用覆盖播放模式，如果已有音效在 sfxSource 上播放，则停止它以覆盖为新的音效；否则直接播放新的音效。
+                // 对于 SFX，始终使用覆盖播放模式：停止当前 SFX（若有），然后应用并播放新的 SFX
                 if (sfxSource.isPlaying)
                 {
                     sfxSource.Stop();
                 }
 
-                sfxSource.clip = sound.clip;
-                sfxSource.pitch = sound.pitch;
-                sfxSource.loop = sound.loop;
-                sfxSource.volume = GetEffectiveVolume(sound);
-                sfxSource.Play();
-                Debug.Log($"isPlaying:{name}");
+                ApplyToSource(sfxSource, sound);
             }
 
         }

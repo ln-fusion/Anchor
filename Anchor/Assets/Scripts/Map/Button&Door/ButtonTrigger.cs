@@ -28,7 +28,11 @@ public class ButtonTrigger : MonoBehaviour
             }
             door.SetActive(false);
             if(!doorIsOpen){
-                soundManager.Play("DoorOpen");
+                // 使用单例访问 SoundManager
+                if (SoundManager.SoundManager.Instance != null)
+                {
+                    SoundManager.SoundManager.Instance.Play("DoorOpen");
+                }
             }
             doorIsOpen=true;
         }
