@@ -90,13 +90,6 @@ public class Player : MonoBehaviour{
         rb=GetComponent<Rigidbody2D>();
     }
 
-    void OnDestroy(){
-        if (SoundManager.SoundManager.Instance != null)
-        {
-            SoundManager.SoundManager.Instance.StopAll();
-        }
-    }
-
     void Update(){
         if (InGameDialogue.IsDialogActive)
         {
