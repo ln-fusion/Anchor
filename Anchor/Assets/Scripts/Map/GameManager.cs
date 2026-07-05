@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.SoundManager.Instance.Play("Music");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
