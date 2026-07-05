@@ -7,6 +7,7 @@ public class ParallaxBackground : MonoBehaviour
     [SerializeField] private float parallaxEffect;
     private GameObject mainCamera;
     private float xPosition;
+    private float yPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,13 +15,15 @@ public class ParallaxBackground : MonoBehaviour
         Debug.Log(mainCamera);
 
         xPosition = transform.position.x;
+        yPosition = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distanceToMove=mainCamera.transform.position.x*parallaxEffect;
+        float distanceMoveX=mainCamera.transform.position.x*parallaxEffect;
+        float distanceMoveY=mainCamera.transform.position.y*parallaxEffect;
 
-        transform.position=new Vector2(xPosition + distanceToMove,transform.position.y);
+        transform.position=new Vector2(xPosition + distanceMoveX,yPosition+distanceMoveY);
     }
 }
