@@ -15,7 +15,6 @@ public class Hook: MonoBehaviour{
     public float2 shootingVelocity;//出去的速度
 
     private bool shouldPlaySoundOnHittingObstacles;
-    public SoundManager.SoundManager soundManager;
     void Start(){
         obstacleCollisionType=0;
         isBeingRetracted=false;

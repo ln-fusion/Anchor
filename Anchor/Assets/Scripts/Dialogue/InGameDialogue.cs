@@ -259,7 +259,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void EndDialog()
     {
-        Debug.Log("test end dialog");
+        //Debug.Log("test end dialog");
         if (deferCloseOnFinish)//历史遗留问题，请忽略
         {
             waitingForExternalClose = true;
@@ -279,7 +279,7 @@ public class InGameDialogue : MonoBehaviour
 
     public void CloseDialog()
     {
-        Debug.Log("test close dialog");
+        //Debug.Log("test close dialog");
         HideDialog();
         if (restoreCameraOnFinish)
         {
@@ -297,7 +297,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void HideDialog()
     {
-        Debug.Log("test hide dialog");
+        //Debug.Log("test hide dialog");
         ShowDialogRoot(false);
         if (dialogText != null)
         {
@@ -307,7 +307,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void ShowDialogRoot(bool visible)
     {
-        Debug.Log("calling ShowDialogRoot "+visible);
+        //Debug.Log("calling ShowDialogRoot "+visible);
         if (dialogRoot != null)
         {
             dialogRoot.SetActive(visible);
@@ -362,7 +362,7 @@ public class InGameDialogue : MonoBehaviour
 
     private void FocusCamera(Transform focusTarget)
     {
-        Debug.Log("begin focus camera");
+        //Debug.Log("begin focus camera");
         if (cameraTransform == null || focusTarget == null) return;
         Debug.Log("focus camera 1");
         cameraOriginalPosition ??= cameraTransform.position;

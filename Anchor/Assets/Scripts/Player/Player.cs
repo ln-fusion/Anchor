@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
+using SoundManager;
 
 
 //已知的问题：
@@ -66,9 +67,7 @@ public class Player : MonoBehaviour{
     [SerializeField] private float hookLength=7.5f;
 
     public Rigidbody2D rb;
-
-    [SerializeField] private SoundManager.SoundManager soundManager;
-
+    
     void DestroyHookAndReset(){
         Destroy(hook);
         hook=null;
@@ -91,10 +90,10 @@ public class Player : MonoBehaviour{
         rb=GetComponent<Rigidbody2D>();
     }
     void Start(){
-        soundManager.Play("Music");
+        SoundManager.SoundManager.Instance.Play("Music");
     }
     void OnDestroy(){
-        soundManager.StopAll();
+        SoundManager.SoundManager.Instance.StopAll();
     }
 
     void Update(){
@@ -140,7 +139,6 @@ public class Player : MonoBehaviour{
                         hookScript.retractingSpeed=hookRetractingSpeed;
                         hookScript.shootingVelocity=dir*hookSpeed;
                         hookScript.colider=hook.GetComponent<CircleCollider2D>();
-                        hookScript.soundManager=soundManager;
                         chain=Instantiate(chainPrefab,new Vector3(0,-114514,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
                         hookHasBeenRetracted=false;
                         soundManager.Play("AnchorShoot");
