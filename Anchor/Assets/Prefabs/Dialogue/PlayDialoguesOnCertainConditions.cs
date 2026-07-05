@@ -15,7 +15,7 @@ public class PlayDialoguesOnCertainConditions : MonoBehaviour{
     }
     public bool doPlayDialogueWhenTheLevelHasBeenCompleted=true;
     public int dialoguePlayedWhenTheLevelHasBeenCompleted=2;
-    void WhenTheLevelHasBeenCompleted(){//需要手动调用
+    public void WhenTheLevelHasBeenCompleted(){//需要手动调用
         if(doPlayDialogueWhenTheLevelHasBeenCompleted)
             inGameDialogue.StartPlaying(dialoguePlayedWhenTheLevelHasBeenCompleted);
     }
