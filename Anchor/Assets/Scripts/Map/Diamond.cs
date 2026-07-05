@@ -29,7 +29,7 @@ public class SwitchScene : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Hook>())
+        if (other.GetComponent<Hook>() || other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             if (dialogSystem == null)
             {
