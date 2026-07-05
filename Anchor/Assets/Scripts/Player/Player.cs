@@ -143,7 +143,7 @@ public class Player : MonoBehaviour{
                         hookScript.soundManager=soundManager;
                         chain=Instantiate(chainPrefab,new Vector3(0,-114514,0),Quaternion.Euler(0,0,0));//别管具体填了什么坐标和角度，不重要
                         hookHasBeenRetracted=false;
-                        soundManager.PlaySFXReplace("AnchorShoot");
+                        soundManager.Play("AnchorShoot");
                         //更新冷却
                         remainingShootingCooldown=shootingCooldown;
                         playerStateShootingHook_RemainingHookLivingTime=playerStateShootingHook_HookMaxLivingTime;

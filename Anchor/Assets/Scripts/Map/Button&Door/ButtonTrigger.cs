@@ -29,7 +29,7 @@ public class ButtonTrigger : MonoBehaviour
             }
             door.SetActive(false);
             if(!doorIsOpen){
-                soundManager.PlaySFXReplace("DoorOpen");
+                soundManager.Play("DoorOpen");
             }
             doorIsOpen=true;
         }

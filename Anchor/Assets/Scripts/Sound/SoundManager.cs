@@ -19,7 +19,7 @@ namespace SoundManager
         public bool loop;            // 是否循环（仅SFX有效，音乐强制循环）
     }
 
-    public class SoundManager : MonoBehaviour
+    public class SoundManager : MonoBehaviour, ISoundService
     {
         public static SoundManager Instance { get; private set; }  // 单例
 
@@ -57,106 +57,64 @@ namespace SoundManager
             ApplyMusicVolume();
         }
 
-        /// 通过名称播放声音
-        public void Play(string name)
+        // 尝试通过名称查找 SoundItem
+        private bool TryGetSound(string name, out SoundItem sound)
         {
-            SoundItem sound = sounds.Find(s => s.name == name);
-            if (sound == null || sound.clip == null)
-                return;
+            sound = sounds.Find(s => s.name == name);
+            return sound != null && sound.clip != null;
+        }
 
-            AudioSource source = sound.type == SoundType.Music ? musicSource : sfxSource;
-
+        // 将 SoundItem 应用到给定的 AudioSource 并播放
+        private void ApplyToSource(AudioSource source, SoundItem sound)
+        {
             source.clip = sound.clip;
             source.pitch = sound.pitch;
             source.loop = sound.type == SoundType.Music ? true : sound.loop;
+            source.volume = GetEffectiveVolume(sound);
+            source.Play();
+        }
+
+        // 通过名称播放声音
+        public void Play(string name)
+        {
+            if (!TryGetSound(name, out var sound)) return;
 
             if (sound.type == SoundType.Music)
             {
                 currentMusic = sound;
-                source.volume = GetEffectiveVolume(sound);
-                source.Play();
+                ApplyToSource(musicSource, sound);
             }
             else
             {
-                // 对于 SFX，始终使用覆盖播放模式，如果已有音效在 sfxSource 上播放，则停止它以覆盖为新的音效；否则直接播放新的音效。
-                if (sfxSource.isPlaying)
-                {
-                    sfxSource.Stop();
-                }
-
-                sfxSource.clip = sound.clip;
-                sfxSource.pitch = sound.pitch;
-                sfxSource.loop = sound.loop;
-                sfxSource.volume = GetEffectiveVolume(sound);
-                sfxSource.Play();
+                if (sfxSource.isPlaying) sfxSource.Stop();
+                ApplyToSource(sfxSource, sound);
             }
+
         }
-
-        /// <summary>
-        /// 播放或覆盖当前正在播放的音效：
-        /// - 如果已有音效在 sfxSource 上播放，则停止并由新的音效覆盖播放；
-        /// - 否则直接播放新的音效。
-        /// 适用于需要“切换”音效（例如碰撞触发，新的音效替换旧音效）的场景。
-        /// 仅对 SoundType.SFX 有效；音乐仍通过 Play(name) 管理。
-        /// </summary>
-        public void PlaySFXReplace(string name)
-        {
-            if(sfxSource.isPlaying){//如果正在播放的音效是开门，忽略其他一切音效
-                if((sfxSource.clip.name=="DoorOpen") && (name!="DoorOpen")){
-                    return;
-                }
-            }
-
-
-            SoundItem sound = sounds.Find(s => s.name == name);
-            if (sound == null || sound.clip == null)
-                return;
-            // 仅对 SFX 生效，若不是 SFX 则不处理
-            if (sound.type != SoundType.SFX)
-            {
-                return;
-            }
-
-            // 如果 sfxSource 正在播放，则停止它以覆盖为新的音效
-            if (sfxSource.isPlaying)
-            {
-                sfxSource.Stop();
-            }
-
-            sfxSource.clip = sound.clip;
-            sfxSource.pitch = sound.pitch;
-            sfxSource.loop = sound.loop; // 对于需要循环的 SFX 有效
-            sfxSource.volume = GetEffectiveVolume(sound);
-            sfxSource.Play();
-        }
-
-        ///停止所有声音
         public void StopAll()
         {
             musicSource.Stop();
             sfxSource.Stop();
         }
 
-        ///计算最终音量 = 独立音量 × 类型音量 × 主音量
+        //计算最终音量 = 独立音量 × 类型音量 × 主音量
         private float GetEffectiveVolume(SoundItem sound)
         {
-            if (sound == null)
-                return 0f;
+            if (sound == null) return 0f;
 
             float typeVolume = sound.type == SoundType.Music ? musicVolume : sfxVolume;
             return sound.volume * masterVolume * typeVolume;
         }
 
-        ///更新当前音乐的音量
+        //更新当前音乐的音量
         private void ApplyMusicVolume()
         {
-            if (musicSource == null || currentMusic == null)
-                return;
+            if (musicSource == null || currentMusic == null) return;
 
             musicSource.volume = GetEffectiveVolume(currentMusic);
         }
 
-        ///编辑器模式下修改参数时实时刷新音量
+        //编辑器模式下修改参数时实时刷新音量
         private void OnValidate()
         {
             ApplyMusicVolume();
