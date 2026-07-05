@@ -74,6 +74,8 @@ namespace SoundManager
             {
                 currentMusic = sound;
                 source.volume = GetEffectiveVolume(sound);
+                Debug.Log(source.clip);
+                Debug.Log(source.loop);
                 source.Play();
             }
             else
@@ -89,6 +91,7 @@ namespace SoundManager
                 sfxSource.loop = sound.loop;
                 sfxSource.volume = GetEffectiveVolume(sound);
                 sfxSource.Play();
+                Debug.Log($"isPlaying:{name}");
             }
         }
 
