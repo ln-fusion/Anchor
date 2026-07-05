@@ -29,7 +29,7 @@ public class SwitchScene : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Hook>() || other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.GetComponent<Player>() )
         {
             if (dialogSystem == null)
             {
@@ -37,8 +37,6 @@ public class SwitchScene : MonoBehaviour
                 return;
 			}
 			dialogSystem.GetComponent<PlayDialoguesOnCertainConditions>().WhenTheLevelHasBeenCompleted();
-
-			Debug.Log("轮椅角色盗冠成功");
             hasTriggered = true;
 		}
     }

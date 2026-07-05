@@ -5,7 +5,6 @@ using UnityEngine;
 public class ButtonTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject door;
-    [SerializeField] private SoundManager.SoundManager soundManager;
     bool doorIsOpen;
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,7 @@ public class ButtonTrigger : MonoBehaviour
             }
             door.SetActive(false);
             if(!doorIsOpen){
-                soundManager.PlaySFXReplace("DoorOpen");
+                SoundManager.SoundManager.Instance.PlaySFXReplace("DoorOpen");
             }
             doorIsOpen=true;
         }

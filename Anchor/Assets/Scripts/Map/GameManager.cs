@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("进入新场景");
+        //Debug.Log("进入新场景");
     }
 
 }

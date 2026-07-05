@@ -12,7 +12,6 @@ public class ParallaxBackground : MonoBehaviour
     void Start()
     {
         mainCamera=GameObject.Find("Main Camera");
-        Debug.Log(mainCamera);
 
         xPosition = transform.position.x;
         yPosition = transform.position.y;

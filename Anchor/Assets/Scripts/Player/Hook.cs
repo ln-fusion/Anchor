@@ -15,7 +15,6 @@ public class Hook: MonoBehaviour{
     public float2 shootingVelocity;//出去的速度
 
     private bool shouldPlaySoundOnHittingObstacles;
-    public SoundManager.SoundManager soundManager;
     void Start(){
         obstacleCollisionType=0;
         isBeingRetracted=false;
@@ -24,7 +23,7 @@ public class Hook: MonoBehaviour{
     }
     void OnCollisionEnter2D(Collision2D collision2D){
         if(shouldPlaySoundOnHittingObstacles){
-            soundManager.PlaySFXReplace("AnchorHit");
+            SoundManager.SoundManager.Instance.PlaySFXReplace("AnchorHit");
         }
         shouldPlaySoundOnHittingObstacles=false;
         obstacleCollisionType=1;
