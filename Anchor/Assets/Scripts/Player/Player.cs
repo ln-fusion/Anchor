@@ -93,7 +93,10 @@ public class Player : MonoBehaviour{
         SoundManager.SoundManager.Instance.Play("Music");
     }
     void OnDestroy(){
-        SoundManager.SoundManager.Instance.StopAll();
+        if (SoundManager.SoundManager.Instance != null)
+        {
+            SoundManager.SoundManager.Instance.StopAll();
+        }
     }
 
     void Update(){
